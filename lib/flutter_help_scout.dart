@@ -4,8 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 
 class FlutterHelpScout {
-  static const MethodChannel _channel =
-      const MethodChannel('kelvinforteta.dev/flutter_help_scout');
+  static const MethodChannel _channel = const MethodChannel('kelvinforteta.dev/flutter_help_scout');
 
   /// This is your beacon ID
   final String beaconId;
@@ -28,13 +27,13 @@ class FlutterHelpScout {
   FlutterHelpScout(
       {this.email = '',
       this.name = '',
-      @required this.beaconId,
+      required this.beaconId,
       this.avatar = '',
       this.company = '',
       this.jobTitle = ''});
 
   /// This method will initialize the beacon.
-  Future<void> initialize() async {
+  Future<String?> initialize() async {
     var data = <String, dynamic>{
       'beaconId': beaconId,
       'email': email,
@@ -54,13 +53,14 @@ class FlutterHelpScout {
     } on PlatformException catch (e) {
       print('Unable to initialize beacon: ${e.toString()}');
     }
+    return null;
   }
 
   /// Once you’ve initialized Beacon, you’re ready to interact with it.
   /// Whenever you want to invoke Beacon, use the code below to
   /// display the Beacon user interface.
 
-  Future<void> open({String beaconId}) async {
+  Future<String?> open({String? beaconId}) async {
     var data = <String, dynamic>{
       'beaconId': beaconId,
     };
@@ -75,6 +75,7 @@ class FlutterHelpScout {
     } on PlatformException catch (e) {
       print('Unable to open beacon: ${e.toString()}');
     }
+    return null;
   }
 
   /// Calling this method resets the current Beacon state,
@@ -82,7 +83,7 @@ class FlutterHelpScout {
   /// push token and resets the Beacon Device ID. It won’t
   /// remove the Beacon ID, or any local config overrides.
 
-  Future<void> logout() async {
+  Future<String?> logout() async {
     try {
       final String result = await _channel.invokeMethod(
         'logoutBeacon',
@@ -92,13 +93,14 @@ class FlutterHelpScout {
     } on PlatformException catch (e) {
       print('Unable to open beacon: ${e.toString()}');
     }
+    return null;
   }
 
   /// This method wipes all data from the Beacon,
   /// including the Beacon ID. This may be useful if
   /// you are using different Beacons in different parts of your app.
 
-  Future<void> clear() async {
+  Future<String?> clear() async {
     try {
       final String result = await _channel.invokeMethod(
         'clearBeacon',
@@ -108,5 +110,6 @@ class FlutterHelpScout {
     } on PlatformException catch (e) {
       print('Unable to open beacon: ${e.toString()}');
     }
+    return null;
   }
 }
