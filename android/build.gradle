@@ -10,13 +10,11 @@ buildscript {
         }
         mavenCentral()
         gradlePluginPortal()
-
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:7.0.4'
+        classpath 'com.android.tools.build:gradle:7.4.0'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-
     }
 }
 
@@ -32,7 +30,7 @@ rootProject.allprojects {
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion 29
+    compileSdk 34
 
     defaultConfig {
         minSdkVersion 21
@@ -44,6 +42,7 @@ android {
 
 dependencies {
     implementation "com.helpscout:beacon:$beaconVersion"
+//    implementation 'com.android.support:multidex:2.0.1'
     implementation 'androidx.appcompat:appcompat:1.5.1'
     implementation 'androidx.core:core-ktx:1.2.0'
 }
